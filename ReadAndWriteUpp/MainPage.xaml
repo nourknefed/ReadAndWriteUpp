@@ -1,0 +1,137 @@
+﻿<Page
+    x:Class="ReadAndWriteUpp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ReadAndWriteUpp"
+    xmlns:models="using:SharedLibrary.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="PersonCollection" Source="{x:Bind viewModel.Persons}"/>
+
+
+    </Page.Resources>
+
+
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1000"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Fill in the folowings blanks" Margin="30" FontSize="20" />
+
+                <TextBox x:Name="tbFirstName" TabIndex="0" Grid.Row="1" Grid.Column="0" Margin="10" Padding="10"   PlaceholderForeground="LightGray" PlaceholderText="Enter your Firstname...  " FontSize="15" FontFamily="Arial Black" />
+                <TextBox x:Name="tbLastName" TabIndex="1" Grid.Row="1" Grid.Column="1" Margin="10" Padding="10" PlaceholderForeground="LightGray" PlaceholderText="Enter your Lastname..." FontSize="15" FontFamily="Arial Black"  />
+                <TextBox x:Name="tbAge" TabIndex="2" Grid.Row="2" Grid.Column="0" Margin="10" Padding="10" PlaceholderForeground="LightGray" PlaceholderText="Enter your Age..." FontSize="15" FontFamily="Arial Black"/>
+                <TextBox x:Name="tbCountry" TabIndex="3" Grid.Row="2" Grid.Column="1" Margin="10" Padding="10" PlaceholderForeground="LightGray" PlaceholderText="Enter your Country..." FontSize="15" FontFamily="Arial Black"/>
+                <TextBox x:Name="tbCity" TabIndex="4" Grid.Row="3" Grid.Column="0" Margin="10" Padding="10" PlaceholderForeground="LightGray" PlaceholderText="Enter City..." FontSize="15" FontFamily="Arial Black" />
+                <TextBox x:Name="tbJob" TabIndex="5" Grid.Row="3" Grid.Column="1" Margin="10" Padding="10" PlaceholderForeground="LightGray" PlaceholderText="Enter your job..." FontSize="15" FontFamily="Arial Black" />
+
+
+
+
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <TextBlock  Grid.Row="0" Text="Choose a File to create" Margin="30" FontSize="20" HorizontalAlignment="Center"  />
+                <Button x:Name="btnJson" Click="btnJson_Click" Grid.Row="1" Width="300" HorizontalAlignment="Center"  VerticalAlignment="Bottom" Content="JSON" FontSize="20"  Margin="0,0,0,6"/>
+                <Button x:Name="btnCsv" Grid.Row="2" Grid.Column="2"  Width="300"  HorizontalAlignment="Center" VerticalAlignment="Center" Content="CSV" FontSize="20" Click="btnCsv_Click" />
+                <Button x:Name="btnTxt" Grid.Row="3" Grid.Column="2" Width="300"   VerticalAlignment="Center" Content="TXT" FontSize="20" HorizontalAlignment="Center" Click="btnTxt_Click" />
+                <Button x:Name="btnXml" Grid.Row="4" Width="300" HorizontalAlignment="Center"   VerticalAlignment="Top" Content="XML" FontSize="20" Margin="0,6,0,0" Click="btnXml_Click"/>
+
+            </Grid>
+
+
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+            <TextBlock  Grid.Row="0" Text="Choose a File you want to read from " Margin="15" FontSize="20" HorizontalAlignment="Center"  />
+            <Button Grid.Row="1" Click="btnJsonfile_Click_1"  x:Name="btnJsonfile" Content="FromJSON" FontSize="20" Margin="400,0,0,0"  />
+            <Button Grid.Row="1" x:Name="btnCsvfile"  HorizontalAlignment="Center"  VerticalAlignment="Center" Content="FromCSV" FontSize="20"  Click="btnCsvfile_Click"/>
+            <Button Grid.Row="1" x:Name="btnXmlfile" Content="FromXml" FontSize="20" Margin="950,3,0,0" Click="btnXmlfile_Click" VerticalAlignment="Top"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListView Grid.Column="0" x:Name="lvPerson" ItemsSource="{Binding Source={StaticResource PersonCollection}}" Margin="20,20,0,20" Background="#FFF1F1F1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Person">
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind FullName}" FontSize="16"/>
+                                <TextBlock Text="{x:Bind Age}" FontSize="16"/>
+                                <TextBlock Text="{x:Bind Country}" FontSize="16"/>
+                                <TextBlock Text="{x:Bind City}" FontSize="16"/>
+                                <TextBlock Text="{x:Bind Jobb}" FontSize="16"/>
+
+
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+                <ListView Margin="0,20,20,20" Grid.Column="1" x:Name="lvXml" Background="#FFF1F1F1" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+
+
+
+
+
+
+
+        </Grid>
+
+
+
+    </Grid>
+</Page>
